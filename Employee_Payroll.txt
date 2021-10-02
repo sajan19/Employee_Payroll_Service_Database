@@ -91,3 +91,41 @@ WHERE date BETWEEN CAST('2018-01-01'AS DATE) AND DATE(NOW());
 | 126 | Rahul  | 600000 | 2018-07-21 |
 +-----+--------+--------+------------+
 3 rows in set (0.00 sec)
+------------------------------------------------------------------------
+//Use Case 6 Alter Operation
+
+mysql> ALTER TABLE `payroll_service`.`employee_payroll` ADD COLUMN `gender` VARCHAR(45) NOT NULL AFTER `name`;
+Query OK, 0 rows affected (2.30 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE `payroll_service`.`employee_payroll` SET `gender` = 'M' WHERE (`name` = 'Sajan');
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE `payroll_service`.`employee_payroll` SET `gender` = 'M' WHERE (`name` = 'Akshay');
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE `payroll_service`.`employee_payroll` SET `gender` = 'M' WHERE (`name` = 'Raj');
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE `payroll_service`.`employee_payroll` SET `gender` = 'M' WHERE (`name` = 'Rahul');
+Query OK, 1 row affected (0.19 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE `payroll_service`.`employee_payroll` SET `gender` = 'M' WHERE (`name` = 'Yash');
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM payroll_service.employee_payroll;
++-----+--------+--------+--------+------------+
+| id  | name   | gender | salary | date       |
++-----+--------+--------+--------+------------+
+| 123 | Sajan  | M      | 400000 | 2012-02-18 |
+| 124 | Raj    | M      | 500000 | 2019-04-22 |
+| 125 | Akshay | M      | 520000 | 2019-06-12 |
+| 126 | Rahul  | M      | 600000 | 2018-07-21 |
+| 127 | Yash   | M      | 550000 | 2016-09-15 |
++-----+--------+--------+--------+------------+
+5 rows in set (0.00 sec)
