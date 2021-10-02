@@ -46,10 +46,10 @@ Query OK, 0 rows affected (1.58 sec)
 //Use Case 3 Insert Operation
 
 mysql> INSERT INTO `pay_roll`.`employee_payroll` 
-(`id`, `name`, `salary`, `start date`) 
+(`id`, `name`, `salary`, 'date`) 
 VALUES ('126', 'Rahul', '600000', '2018-07-21');
 INSERT INTO `pay_roll`.`employee_payroll` 
-(`id`, `name`, `salary`, `start date`) 
+(`id`, `name`, `salary`, 'date`) 
 VALUES ('127', 'Yash', '550000', '2106-09-15');
 Query OK, 1 row affected (0.12 sec)
 
@@ -60,12 +60,34 @@ Query OK, 1 row affected (0.10 sec)
 
 mysql> SELECT * FROM pay_roll.employee_payroll;
 +-----+--------+--------+------------+
-| id  | name   | salary | start date |
+| id  | name   | salary | date |
 +-----+--------+--------+------------+
 | 123 | Sajan  | 400000 | 2012-02-18 |
 | 124 | Raj    | 500000 | 2019-04-22 |
 | 125 | Akshay | 520000 | 2019-06-12 |
 | 126 | Rahul  | 600000 | 2018-07-21 |
-| 127 | Yash   | 550000 | 2106-09-15 |
+| 127 | Yash   | 550000 | 2016-09-15 |
 +-----+--------+--------+------------+
 5 rows in set (0.05 sec)
+
+------------------------------------------------------------------------
+//Use Case 5 Where Operation
+
+mysql> SELECT salary from pay_roll.employee_payroll23 WHERE name = 'Sajan';
++--------+
+| salary |
++--------+
+| 400000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM payroll_service.employee_payroll 
+WHERE date BETWEEN CAST('2018-01-01'AS DATE) AND DATE(NOW());
++-----+--------+--------+------------+
+| id  | name   | salary | date       |
++-----+--------+--------+------------+
+| 124 | Raj    | 500000 | 2019-04-22 |
+| 125 | Akshay | 520000 | 2019-06-12 |
+| 126 | Rahul  | 600000 | 2018-07-21 |
++-----+--------+--------+------------+
+3 rows in set (0.00 sec)
