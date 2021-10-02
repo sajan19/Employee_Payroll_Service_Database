@@ -129,3 +129,13 @@ mysql> SELECT * FROM payroll_service.employee_payroll;
 | 127 | Yash   | M      | 550000 | 2016-09-15 |
 +-----+--------+--------+--------+------------+
 5 rows in set (0.00 sec)
+------------------------------------------------------------------------
+// Use Case 7 Ability to find sum of salary of male and female employees
+
+mysql> SELECT SUM(salary) FROM  payroll_service.employee_payroll WHERE gender = 'M' GROUP BY gender;
++-------------+
+| SUM(salary) |
++-------------+
+|     2570000 |
++-------------+
+1 row in set (0.00 sec)
