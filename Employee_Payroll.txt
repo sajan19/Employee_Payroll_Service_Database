@@ -41,3 +41,17 @@ mysql> CREATE TABLE `pay_roll`.`employee_payroll`
  `salary` INT NOT NULL,  
 `start date` DATE NOT NULL,  PRIMARY KEY (`id`));
 Query OK, 0 rows affected (1.58 sec)
+
+------------------------------------------------------------------------
+Use Case 3 Insert Operation
+
+mysql> INSERT INTO `pay_roll`.`employee_payroll` 
+(`id`, `name`, `salary`, `start date`) 
+VALUES ('126', 'Rahul', '600000', '2018-07-21');
+INSERT INTO `pay_roll`.`employee_payroll` 
+(`id`, `name`, `salary`, `start date`) 
+VALUES ('127', 'Yash', '550000', '2106-09-15');
+Query OK, 1 row affected (0.12 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
