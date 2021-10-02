@@ -1,5 +1,12 @@
+/*
+@author : Sajan
+
+*/
+
 #Welcome to Employee Payroll Service Database
+
 //Use Case 1 Create a Database
+
 mysql> create database payroll_service;
 Query OK, 1 row affected (0.16 sec)
 
@@ -23,3 +30,14 @@ mysql> show databases;
 mysql> use payroll_service;
 Database changed
 mysql>
+------------------------------------------------------------------------
+//Use Case 2 Create a Table
+
+mysql> use payroll_service;
+Database changed
+
+mysql> CREATE TABLE `pay_roll`.`employee_payroll` 
+(  `id` INT NOT NULL,  `name` VARCHAR(45) NOT NULL, 
+ `salary` INT NOT NULL,  
+`start date` DATE NOT NULL,  PRIMARY KEY (`id`));
+Query OK, 0 rows affected (1.58 sec)
