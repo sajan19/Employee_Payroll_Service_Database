@@ -43,7 +43,7 @@ mysql> CREATE TABLE `pay_roll`.`employee_payroll`
 Query OK, 0 rows affected (1.58 sec)
 
 ------------------------------------------------------------------------
-Use Case 3 Insert Operation
+//Use Case 3 Insert Operation
 
 mysql> INSERT INTO `pay_roll`.`employee_payroll` 
 (`id`, `name`, `salary`, `start date`) 
@@ -55,3 +55,17 @@ Query OK, 1 row affected (0.12 sec)
 
 Query OK, 1 row affected (0.10 sec)
 
+------------------------------------------------------------------------
+//Use Case 4 Select Operation
+
+mysql> SELECT * FROM pay_roll.employee_payroll;
++-----+--------+--------+------------+
+| id  | name   | salary | start date |
++-----+--------+--------+------------+
+| 123 | Sajan  | 400000 | 2012-02-18 |
+| 124 | Raj    | 500000 | 2019-04-22 |
+| 125 | Akshay | 520000 | 2019-06-12 |
+| 126 | Rahul  | 600000 | 2018-07-21 |
+| 127 | Yash   | 550000 | 2106-09-15 |
++-----+--------+--------+------------+
+5 rows in set (0.05 sec)
