@@ -246,4 +246,93 @@ mysql> describe employee_payroll;
 
 mysql> INSERT INTO `payroll_service`.`employee_payroll` (`name`, `salary`, `date`) VALUES ('Mark', '630000', '2019-05-18');
 ERROR 1364 (HY000): Field 'id' doesn't have a default value
-mysql>
+
+
+------------------------------------------------------------------------
+/* Use Case 9 Ability to extend
+employee_payroll table to have Basic Pay, Deductions, Taxable Pay,
+Income Tax, Net Pay */
+
+mysql> Alter Table employee_payroll RENAME COLUMN salary TO basic_pay;
+Query OK, 0 rows affected (0.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++---------------------------+
+| Tables_in_payroll_service |
++---------------------------+
+| employee_payroll          |
++---------------------------+
+1 row in set (0.11 sec)
+
+mysql> describe employee_payroll;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | NO   | PRI | NULL    |       |
+| name         | varchar(45)  | NO   |     | NULL    |       |
+| phone_number | varchar(250) | YES  |     | NULL    |       |
+| address      | varchar(250) | YES  |     | TBD     |       |
+| department   | varchar(250) | NO   |     | NULL    |       |
+| gender       | varchar(45)  | NO   |     | NULL    |       |
+| basic_pay    | int          | NO   |     | NULL    |       |
+| date         | date         | NO   |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> Alter TABLE employee_payroll ADD deductions DOUBLE NOT NULL AFTER basic_pay;
+Query OK, 0 rows affected (1.77 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter TABLE employee_payroll ADD taxable_pay DOUBLE NOT NULL AFTER deductions;
+Query OK, 0 rows affected (2.24 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter TABLE employee_payroll ADD income_tax DOUBLE NOT NULL AFTER taxable_pay;
+Query OK, 0 rows affected (1.91 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter TABLE employee_payroll ADD net_pay DOUBLE NOT NULL AFTER income_tax;
+Query OK, 0 rows affected (2.53 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe employee_payroll;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | NO   | PRI | NULL    |       |
+| name         | varchar(45)  | NO   |     | NULL    |       |
+| phone_number | varchar(250) | YES  |     | NULL    |       |
+| address      | varchar(250) | YES  |     | TBD     |       |
+| department   | varchar(250) | NO   |     | NULL    |       |
+| gender       | varchar(45)  | NO   |     | NULL    |       |
+| basic_pay    | int          | NO   |     | NULL    |       |
+| deductions   | double       | NO   |     | NULL    |       |
+| taxable_pay  | double       | NO   |     | NULL    |       |
+| income_tax   | double       | NO   |     | NULL    |       |
+| net_pay      | double       | NO   |     | NULL    |       |
+| date         | date         | NO   |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+12 rows in set (0.02 sec)
+
+mysql> UPDATE `payroll_service`.`employee_payroll` SET `department` = 'Sales' WHERE (`name` = 'Sajan');
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> INSERT INTO `payroll_service`.`employee_payroll`
+(`id`, `name`, `department`, `gender`, `basic_pay`, `deductions`, `taxable_pay`, `income_tax`, `net_pay`, `date`)
+ VALUES ('128', 'Rani', 'HR', 'F', '300000', '100000', '50000', '30000', '250000', '2019-07-12');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from employee_payroll;
++-----+---------+--------------+---------+------------+--------+-----------+------------+-------------+------------+---------+------------+
+| id  | name    | phone_number | address | department | gender | basic_pay | deductions | taxable_pay | income_tax | net_pay | date       |
++-----+---------+--------------+---------+------------+--------+-----------+------------+-------------+------------+---------+------------+
+| 123 | Sajan   | NULL         | NULL    | Sales      | M      |    400000 |          0 |           0 |          0 |       0 | 2012-02-18 |
+| 124 | Raj     | NULL         | NULL    |            | M      |    500000 |          0 |           0 |          0 |       0 | 2019-04-22 |
+| 125 | Raju    | NULL         | NULL    |            | M      |    520000 |          0 |           0 |          0 |       0 | 2019-06-12 |
+| 126 | Raju    | NULL         | NULL    |            | M      |    600000 |          0 |           0 |          0 |       0 | 2018-07-21 |
+| 127 | Sheetal | NULL         | NULL    |            | F      |    550000 |          0 |           0 |          0 |       0 | 2016-09-15 |
+| 128 | Rani    | NULL         | TBD     | HR         | F      |    300000 |     100000 |       50000 |      30000 |  250000 | 2019-07-12 |
++-----+---------+--------------+---------+------------+--------+-----------+------------+-------------+------------+---------+------------+
+6 rows in set (0.00 sec)
