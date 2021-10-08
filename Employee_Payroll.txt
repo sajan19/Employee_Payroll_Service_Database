@@ -356,3 +356,53 @@ mysql> SELECT * from  payroll_service.employee_payroll WHERE `name` = 'Sajan';
 | 129 | Sajan | 987231890    | Uran    | Marketing  | M      |   1000000 |     100000 |      300000 |     200000 | 1500000 | 2020-05-13 |
 +-----+-------+--------------+---------+------------+--------+-----------+------------+-------------+------------+---------+------------+
 2 rows in set (0.00 sec)
+
+------------------------------------------------------------------------
+//Use Case 11 Build an ER Diagram
+CREATE database `employee_service` ;
+
+CREATE TABLE `employee_service`.`employee` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `gender` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(45) NOT NULL,
+  `date_of_join` DATE NOT NULL,
+  PRIMARY KEY (`id`));
+
+  INSERT INTO `employee_service`.`employee` (`id`, `name`, `gender`, `address`, `date_of_join`) VALUES ('122', 'Sajan', 'M', 'Uran', '2018-11-01');
+  INSERT INTO `employee_service`.`employee` (`id`, `name`, `gender`, `address`, `date_of_join`) VALUES ('123', 'Rahul', 'M', 'Panvel', '2017-10-23');
+  INSERT INTO `employee_service`.`employee` (`id`, `name`, `gender`, `address`, `date_of_join`) VALUES ('124', 'Saloni', 'F', 'Vashi', '2019-06-12');
+
+ALTER TABLE `employee_service`.`employee`
+ADD INDEX `name` (`name` ASC) VISIBLE;;
+
+CREATE TABLE `employee_service`.`company` (
+  `id` INT NOT NULL,
+  `dept` VARCHAR(45) NOT NULL,
+  `date_of_join` DATE NOT NULL,
+  PRIMARY KEY (`id`));
+
+INSERT INTO `employee_service`.`company` (`id`, `dept`, `date_of_join`) VALUES ('1001', 'HR', '2017-10-23');
+INSERT INTO `employee_service`.`company` (`id`, `dept`, `date_of_join`) VALUES ('1002', 'Sales', '2018-10-23');
+INSERT INTO `employee_service`.`company` (`id`, `dept`, `date_of_join`) VALUES ('1007', 'OPS', '2019-06-12');
+
+ALTER TABLE `employee_service`.`company`
+ADD INDEX `date_of_join` (`date_of_join` ASC) VISIBLE;;
+
+ALTER TABLE `employee_service`.`employee`
+ADD INDEX `date_of_join_idx` (`date_of_join` ASC) VISIBLE;;
+ALTER TABLE `employee_service`.`employee`
+ADD CONSTRAINT `date_of_join`
+  FOREIGN KEY (`date_of_join`)
+  REFERENCES `employee_service`.`company` (`date_of_join`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+CREATE TABLE `employee_service`.`department` (
+  `dept_id` INT NOT NULL,
+  `dept` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`dept_id`));
+
+  INSERT INTO `employee_service`.`department` (`dept_id`, `dept`) VALUES ('1267', 'Sales');
+  INSERT INTO `employee_service`.`department` (`dept_id`, `dept`) VALUES ('1234', 'HR');
+  INSERT INTO `employee_service`.`department` (`dept_id`, `dept`) VALUES ('1779', 'OPS');
