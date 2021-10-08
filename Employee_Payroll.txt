@@ -336,3 +336,23 @@ mysql> select * from employee_payroll;
 | 128 | Rani    | NULL         | TBD     | HR         | F      |    300000 |     100000 |       50000 |      30000 |  250000 | 2019-07-12 |
 +-----+---------+--------------+---------+------------+--------+-----------+------------+-------------+------------+---------+------------+
 6 rows in set (0.00 sec)
+
+------------------------------------------------------------------------
+/* Use Case 10 Ability to make Sajan as part of
+Sales and Marketing Department */
+
+mysql> INSERT INTO `payroll_service`.`employee_payroll`
+(`id`, `name`, `phone_number`, `address`, `department`, `gender`, `basic_pay`, `deductions`, `taxable_pay`,
+`income_tax`, `net_pay`, `date`)
+VALUES ('129', 'Sajan', '987231890', 'Uran', 'Marketing',
+'M', '1000000', '100000', '300000', '200000', '1500000', '2020-05-13');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> SELECT * from  payroll_service.employee_payroll WHERE `name` = 'Sajan';
++-----+-------+--------------+---------+------------+--------+-----------+------------+-------------+------------+---------+------------+
+| id  | name  | phone_number | address | department | gender | basic_pay | deductions | taxable_pay | income_tax | net_pay | date       |
++-----+-------+--------------+---------+------------+--------+-----------+------------+-------------+------------+---------+------------+
+| 123 | Sajan | NULL         | NULL    | Sales      | M      |    400000 |          0 |           0 |          0 |       0 | 2012-02-18 |
+| 129 | Sajan | 987231890    | Uran    | Marketing  | M      |   1000000 |     100000 |      300000 |     200000 | 1500000 | 2020-05-13 |
++-----+-------+--------------+---------+------------+--------+-----------+------------+-------------+------------+---------+------------+
+2 rows in set (0.00 sec)
