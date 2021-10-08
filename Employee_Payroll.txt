@@ -139,3 +139,111 @@ mysql> SELECT SUM(salary) FROM  payroll_service.employee_payroll WHERE gender = 
 |     2570000 |
 +-------------+
 1 row in set (0.00 sec)
+
+------------------------------------------------------------------------
+/* Use Case 8 Ability to extend employee_payroll
+data to store employee information like
+employee phone, address and department */
+
+mysql> Alter TABLE employee_payroll ADD address VARCHAR(250) AFTER phone_number;
+Query OK, 0 rows affected (2.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter TABLE employee_payroll ADD department VARCHAR(250) AFTER address;
+Query OK, 0 rows affected (2.28 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++-----+---------+--------------+---------+------------+--------+--------+------------+
+| id  | name    | phone_number | address | department | gender | salary | date       |
++-----+---------+--------------+---------+------------+--------+--------+------------+
+| 123 | Sajan   | NULL         | NULL    | NULL       | M      | 400000 | 2012-02-18 |
+| 124 | Raj     | NULL         | NULL    | NULL       | M      | 500000 | 2019-04-22 |
+| 125 | Raju    | NULL         | NULL    | NULL       | M      | 520000 | 2019-06-12 |
+| 126 | Raju    | NULL         | NULL    | NULL       | M      | 600000 | 2018-07-21 |
+| 127 | Sheetal | NULL         | NULL    | NULL       | F      | 550000 | 2016-09-15 |
++-----+---------+--------------+---------+------------+--------+--------+------------+
+5 rows in set (0.06 sec)
+
+mysql> Alter TABLE employee_payroll ADD phone_number VARCHAR(250) AFTER name;
+Query OK, 0 rows affected (2.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++-----+---------+--------------+--------+--------+------------+
+| id  | name    | phone_number | gender | salary | date       |
++-----+---------+--------------+--------+--------+------------+
+| 123 | Sajan   | NULL         | M      | 400000 | 2012-02-18 |
+| 124 | Raj     | NULL         | M      | 500000 | 2019-04-22 |
+| 125 | Raju    | NULL         | M      | 520000 | 2019-06-12 |
+| 126 | Raju    | NULL         | M      | 600000 | 2018-07-21 |
+| 127 | Sheetal | NULL         | F      | 550000 | 2016-09-15 |
++-----+---------+--------------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> Alter TABLE employee_payroll ADD address VARCHAR(250) AFTER phone_number;
+Query OK, 0 rows affected (1.45 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++-----+---------+--------------+---------+--------+--------+------------+
+| id  | name    | phone_number | address | gender | salary | date       |
++-----+---------+--------------+---------+--------+--------+------------+
+| 123 | Sajan   | NULL         | NULL    | M      | 400000 | 2012-02-18 |
+| 124 | Raj     | NULL         | NULL    | M      | 500000 | 2019-04-22 |
+| 125 | Raju    | NULL         | NULL    | M      | 520000 | 2019-06-12 |
+| 126 | Raju    | NULL         | NULL    | M      | 600000 | 2018-07-21 |
+| 127 | Sheetal | NULL         | NULL    | F      | 550000 | 2016-09-15 |
++-----+---------+--------------+---------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> Alter TABLE employee_payroll ADD department VARCHAR(250) NOT NULL AFTER address;
+Query OK, 0 rows affected (2.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++-----+---------+--------------+---------+------------+--------+--------+------------+
+| id  | name    | phone_number | address | department | gender | salary | date       |
++-----+---------+--------------+---------+------------+--------+--------+------------+
+| 123 | Sajan   | NULL         | NULL    |            | M      | 400000 | 2012-02-18 |
+| 124 | Raj     | NULL         | NULL    |            | M      | 500000 | 2019-04-22 |
+| 125 | Raju    | NULL         | NULL    |            | M      | 520000 | 2019-06-12 |
+| 126 | Raju    | NULL         | NULL    |            | M      | 600000 | 2018-07-21 |
+| 127 | Sheetal | NULL         | NULL    |            | F      | 550000 | 2016-09-15 |
++-----+---------+--------------+---------+------------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> Alter TABLE employee_payroll ALTER address SET DEFAULT 'TBD';
+Query OK, 0 rows affected (0.54 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++-----+---------+--------------+---------+------------+--------+--------+------------+
+| id  | name    | phone_number | address | department | gender | salary | date       |
++-----+---------+--------------+---------+------------+--------+--------+------------+
+| 123 | Sajan   | NULL         | NULL    |            | M      | 400000 | 2012-02-18 |
+| 124 | Raj     | NULL         | NULL    |            | M      | 500000 | 2019-04-22 |
+| 125 | Raju    | NULL         | NULL    |            | M      | 520000 | 2019-06-12 |
+| 126 | Raju    | NULL         | NULL    |            | M      | 600000 | 2018-07-21 |
+| 127 | Sheetal | NULL         | NULL    |            | F      | 550000 | 2016-09-15 |
++-----+---------+--------------+---------+------------+--------+--------+------------+
+5 rows in set (0.06 sec)
+
+mysql> describe employee_payroll;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | NO   | PRI | NULL    |       |
+| name         | varchar(45)  | NO   |     | NULL    |       |
+| phone_number | varchar(250) | YES  |     | NULL    |       |
+| address      | varchar(250) | YES  |     | TBD     |       |
+| department   | varchar(250) | NO   |     | NULL    |       |
+| gender       | varchar(45)  | NO   |     | NULL    |       |
+| salary       | int          | NO   |     | NULL    |       |
+| date         | date         | NO   |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.08 sec)
+
+mysql> INSERT INTO `payroll_service`.`employee_payroll` (`name`, `salary`, `date`) VALUES ('Mark', '630000', '2019-05-18');
+ERROR 1364 (HY000): Field 'id' doesn't have a default value
+mysql>
